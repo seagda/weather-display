@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/style.css" />
+    <title>Weather Display Panel</title>
+
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">Weather Dashboard</span></nav>
+    <div class="row">
+    <!-- left column for search results and button -->
+        <div class="col-md-3"></div>
+    <!-- right column for displaying results-->
+        <div class="col-md-9">
+            <div class="row">
+                <div class="card" style="width: 67vw;">
+                    <div class="card-body">
+                      <h5 class="card-title">Weather for [CityName], [Date]</h5>
+<!--    TODO: Create paragraphs in JQUERY to replace these class="card-text" -->
+                        <p>Temp</p>
+                        <p>Wind Speed</p>
+                        <p>Humidity</p>
+                        <p>UV index</p>
+                    </div>
+                  </div>
+
+            </div>
+            <div class="row"><h5 class="">5 Day Forecast:</h5></div>
+            <div class="row">
+<!--    TODO: Create divs in JQUERY to replace these -->
+                <div class="card" style="width: 12vw;">
+                    <div class="card-body">
+                    <h5 class="card-title">Weather for [CityName], [Date]</h5>
+<!--    TODO: Create paragraphs in JQUERY to replace these class="card-text" -->
+                        <p>Temp</p>
+                        <p>Wind Speed</p>
+                        <p>Humidity</p>
+                        <p>UV index</p>
+                    </div>                
+                </div>
+            </div>
+
+
+
+<!-- right column ends there -->
+        </div>
+<!-- containing row ends below -->
+    </div>    
+<!-- container wrapper ends below-->
+</div>    
+
+
+
+
+<!-- adding libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="assets/script.js"></script>
+</body>
+</html>
