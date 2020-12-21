@@ -17,7 +17,20 @@
         <span class="navbar-brand mb-0 h1">Weather Dashboard</span></nav>
     <div class="row">
     <!-- left column for search results and button -->
-        <div class="col-md-3"></div>
+        <div class="col-md-3">
+
+            <form id="city-search">
+                <label for="city-input">Search for a City</label>
+                <input type="text" id="city-input">
+                <br>
+          
+                <!-- Button triggers city to be added -->
+                <input id="add-city" type="submit" value="Search">
+              </form>
+            <div id="prev-city-view"></div>
+
+
+        </div>
     <!-- right column for displaying results-->
         <div class="col-md-9">
             <div class="row">
