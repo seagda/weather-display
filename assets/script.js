@@ -12,6 +12,7 @@ function getCityWeather(currentCity) {
         method: "GET"
     })
         .then(function (response) {
+            console.log("This is the city info:\n")
             console.log(response);
             var cityLat = response.coord.lat;
             var cityLon = response.coord.lon;
@@ -24,11 +25,34 @@ function getCityWeather(currentCity) {
                 method: "GET"
             })
                 .then(function (weatherData) {
+                console.log("This is the weather data:\n")
                 console.log(weatherData);
-                
+//              debugger;  
 // GET CURRENT DATA AND DISPLAY                
-// TODO: define variables needed from weatherData
 
+$(".curr-city").text("Weather for: " + response.name);
+$(".curr-temp").text("Temp: " + weatherData.current.temp + " &deg;");
+$(".curr-wind").text("Wind Speed: " + weatherData.current.wind_speed + " mph");
+$(".curr-humid").text("Humidity: " + weatherData.current.humidity + "%");
+$(".curr-uv").text("UV Index: " + weatherData.current.uvi);
+/* define variables needed from weatherData
+ 
+var currCityHead = $("<h5>").addClass("card-title");
+                    currCityHead.html("Weather for: " + weatherData.name);
+                    $("#display-current").append(currCityCell);
+
+                    var currTempP = $("<p>");
+                    currTempP.html("Temp: " + weatherData.main.temp + "&deg;");
+                    $("#display-current").append(currTempP);
+
+                    var currWindP = $("<p>");
+                    windP.html("Wind Speed: " + weatherData.wind.speed + " mph");
+                    $("#display-current").append(currWindP);
+
+                    var humidP = $("<p>");
+                    currHumidP.html("Humidity: " + weatherData.main.humidity + "%");
+                    $("#display-current").append(currHumidP);
+ */               
 // TODO: style them
 // TODO: append them to HTML
 
