@@ -20,14 +20,18 @@
         <div class="col-md-3">
 
             <form id="city-search">
-                <label for="city-input">Search for a City</label>
-                <input type="text" id="city-input">
-                <br>
-          
-                <!-- Button triggers city to be added -->
-                <input id="add-city" type="submit" value="Search">
-              </form>
-            <div id="prev-city-view"></div>
+                <h2>Search for a City</h2>
+                <p><input type="text" id="city-input"></p>
+                <p><input class="btn btn-primary" id="add-city" type="submit" value="Search"></p>
+            </form>
+            <hr />
+            <h5>Previous Searches</h5>
+            <div id="prev-city-view">
+
+
+
+            </div>
+            <div><button class="btn btn-danger" id="clear-searches">Clear Searches</button> </div>
 
 
         </div>
@@ -45,18 +49,10 @@
                 </div>
             </div>
             <div class="row"><h5 class="">5 Day Forecast:</h5></div>
-            <div class="row">
+            <div class="row" id="5day-forecast">
 <!--    TODO: Create divs in JQUERY to replace these -->
-                <div class="card" style="width: 12vw;">
-                    <div class="card-body">
-                    <h5 class="card-title">Weather for [CityName], [Date]</h5>
-<!--    TODO: Create paragraphs in JQUERY to replace these class="card-text" -->
-                        <p>Temp</p>
-                        <p>Wind Speed</p>
-                        <p>Humidity</p>
-                        <p>UV index</p>
-                    </div>                
-                </div>
+
+
             </div>
 
 

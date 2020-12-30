@@ -1,6 +1,14 @@
 var myApiKey = "3cda3951c16a76407cc22a6769eab9d3"
 var citySearched = [];
 
+$(document).ready(function(){
+    var prevCityStored = JSON.parse(localStorage.getItem("City Searched"));
+    console.log(prevCityStored);
+    if (prevCityStored !== null){
+        citySearched = prevCityStored;
+    } 
+    renderButtons();
+});
 
 
 // Setup AJAX request
@@ -17,9 +25,9 @@ function getCityWeather(currentCity) {
             var cityLat = response.coord.lat;
             var cityLon = response.coord.lon;
 
-            //        debugger;
-            // start AJAX subquery for ALLone call
-            var queryURLAllone = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLat + "&lon=" + cityLon + "&appid=" + myApiKey;
+
+// start AJAX subquery for ALLone call
+            var queryURLAllone = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLat + "&lon=" + cityLon + "&appid=" + myApiKey + "&units=imperial";
             $.ajax({
                 url: queryURLAllone,
                 method: "GET"
@@ -27,38 +35,39 @@ function getCityWeather(currentCity) {
                 .then(function (weatherData) {
                 console.log("This is the weather data:\n")
                 console.log(weatherData);
-//              debugger;  
-// GET CURRENT DATA AND DISPLAY                
 
-$(".curr-city").text("Weather for: " + response.name);
-$(".curr-temp").text("Temp: " + weatherData.current.temp + " &deg;");
-$(".curr-wind").text("Wind Speed: " + weatherData.current.wind_speed + " mph");
-$(".curr-humid").text("Humidity: " + weatherData.current.humidity + "%");
-$(".curr-uv").text("UV Index: " + weatherData.current.uvi);
-/* define variables needed from weatherData
- 
-var currCityHead = $("<h5>").addClass("card-title");
-                    currCityHead.html("Weather for: " + weatherData.name);
-                    $("#display-current").append(currCityCell);
+// Display Current Weather Data 
+                    $(".curr-city").text("Weather for: " + response.name + " - " + moment(weatherData.current.dt * 1000).format("dddd, MMMM Do"));
+                    $(".curr-temp").text("Temp: " + Math.floor(weatherData.current.temp) + " F");
+                    $(".curr-wind").text("Wind Speed: " + Math.floor(weatherData.current.wind_speed) + " mph");
+                    $(".curr-humid").text("Humidity: " + weatherData.current.humidity + "%");
+                    $(".curr-uv").text("UV Index: " + Math.floor(weatherData.current.uvi));
 
-                    var currTempP = $("<p>");
-                    currTempP.html("Temp: " + weatherData.main.temp + "&deg;");
-                    $("#display-current").append(currTempP);
 
-                    var currWindP = $("<p>");
-                    windP.html("Wind Speed: " + weatherData.wind.speed + " mph");
-                    $("#display-current").append(currWindP);
+// Display Five Day Forecast Data
+            $("#5day-forecast").empty();
 
-                    var humidP = $("<p>");
-                    currHumidP.html("Humidity: " + weatherData.main.humidity + "%");
-                    $("#display-current").append(currHumidP);
- */               
-// TODO: style them
-// TODO: append them to HTML
+            for (i = 1; i < 6; i++) {
+                var forecastDay = moment(weatherData.daily[i].dt * 1000).format("MMM D");
+                console.log(forecastDay);
 
-// GET DAILY FORECAST DATA
-// TODO: create for loop to create five boxes that hold 5-day forecast data 
-            })
+                var forecastCard = $(`
+                <div class="card forecast">
+                    <div class="card-body">
+                    <h5 class="card-title">${forecastDay}</h5>
+                    <p>Temp: ${Math.floor(weatherData.daily[i].temp.day)} F</p>
+                    <p>Wind Speed: ${Math.floor(weatherData.daily[i].wind_speed)} mph</p>
+                    <p>Humidity: ${weatherData.daily[i].humidity}%</p>
+                    <p>UV Index: ${Math.floor(weatherData.daily[i].uvi)}</p>
+                    </div>                
+                </div>
+                `)
+                console.log(forecastCard);
+                $("#5day-forecast").append(forecastCard);
+
+            }
+
+            }) 
 
         })
 
@@ -77,29 +86,44 @@ function renderButtons() {
     for (var i = 0; i < citySearched.length; i++) {
         var newButton = $("<button>");
         newButton.text(citySearched[i]);
-        $("#prev-city-view").append(newButton);
+        $("#prev-city-view").prepend(newButton);
     }
 }
 
 // This function handles events where the add movie button is clicked
 $("#add-city").on("click", function (event) {
-    // event.preventDefault() prevents submit button from trying to send a form.
+    // Prevent submit button from trying to send a form.
     event.preventDefault();
 
     // Capture the city searched the user types into the input field
     var currentCity = $("#city-input").val();
     // Add to previous searches array
     citySearched.push(currentCity);
-// TODO: save citySearched array to Localstorage
+
+// save citySearched array to Localstorage
+    localStorage.setItem("City Searched", JSON.stringify(citySearched));
 
     console.log(citySearched);
-    // The renderButtons function is called, rendering the list of previous searches
+// The renderButtons function is called, rendering the list of previous searches
     renderButtons();
-    getCityWeather(citySearched);
+    getCityWeather(currentCity);
 });
-// TODO: Add onload event which will get from localstorage 
-// TODO: set citySearched to what's stored in localstorage
+
+
+
+
+
+
+$("#prev-city-view").on("click", "button", function (event) {   
+    getCityWeather($(this).text())
+})
+
+
+// Clear previous searches from localstorage 
+$("#clear-searches").on("click", function(){
+   localStorage.setItem("City Searched", null);
+   $(document)
+});
 
 // Calling the renderButtons function to display the initial list of cities
-// TODO: move this call inside the onload function once it's written
 renderButtons();
