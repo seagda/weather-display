@@ -1,3 +1,10 @@
 .forecast {
     width: 12vw;
 }
+
+#current-card {
+    width: 67vw;
+    min-height: 100px;
+    background-color: lightblue;
+
+}

@@ -35,9 +35,23 @@ function getCityWeather(currentCity) {
                 .then(function (weatherData) {
                 console.log("This is the weather data:\n")
                 console.log(weatherData);
+                //debugger;
 
-// Display Current Weather Data 
+                var weatherConditions = "";
+                var weatherCondArray = weatherData.current.weather;
+
+                for (var i = 0; i < weatherCondArray.length; i++) {
+                    weatherConditions += weatherCondArray[i].main + " ";
+
+                    } 
+                    console.log(weatherConditions);
+//                    weatherConditions = weatherConditions.splice(0, weatherConditions.length-2);
+
+// Display Current Weather Data
+                    $("#current-card").css({backgroundImage: `url("./assets/img/bg-${weatherCondArray[0].main}.jfif")`});
+
                     $(".curr-city").text("Weather for: " + response.name + " - " + moment(weatherData.current.dt * 1000).format("dddd, MMMM Do"));
+                    $(".curr-condition").text("Conditions: " + weatherConditions);
                     $(".curr-temp").text("Temp: " + Math.floor(weatherData.current.temp) + " F");
                     $(".curr-wind").text("Wind Speed: " + Math.floor(weatherData.current.wind_speed) + " mph");
                     $(".curr-humid").text("Humidity: " + weatherData.current.humidity + "%");
