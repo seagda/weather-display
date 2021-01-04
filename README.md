@@ -5,6 +5,10 @@
 A simple weather dashboard using the OpenWeather API  [https://openweathermap.org/api].
 
 ---------
+## DEPLOYED APPLICATION
+View the deployed weather dashboard:  [https://seagda.github.io/weather-display/].
+
+---------
 ## USER STORY
 AS A traveler
 I WANT to find out current weather conditions in various cities around the globe, and
