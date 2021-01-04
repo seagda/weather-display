@@ -1,9 +1,12 @@
+// Set global variables
 var myApiKey = "3cda3951c16a76407cc22a6769eab9d3"
+// Setup  empty array to hold search results
 var citySearched = [];
-
+// Pull data from localStorage
 $(document).ready(function(){
     var prevCityStored = JSON.parse(localStorage.getItem("City Searched"));
     console.log(prevCityStored);
+// check data present in local storage if clear button has been clicked
     if (prevCityStored !== null){
         citySearched = prevCityStored;
     } 
@@ -11,7 +14,7 @@ $(document).ready(function(){
 });
 
 
-// Setup AJAX request
+// Setup AJAX request to get latitude and longitude for All in One query
 function getCityWeather(currentCity) {
     var queryURLCity = "https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&appid=" + myApiKey;
 
@@ -37,6 +40,7 @@ function getCityWeather(currentCity) {
                 console.log(weatherData);
                 //debugger;
 
+// setup weatherConditions to allow for dynamic background image 
                 var weatherConditions = "";
                 var weatherCondArray = weatherData.current.weather;
 
@@ -45,12 +49,10 @@ function getCityWeather(currentCity) {
 
                     } 
                     console.log(weatherConditions);
-//                    weatherConditions = weatherConditions.splice(0, weatherConditions.length-2);
 
 // Display Current Weather Data
-                    $("#current-card").css({backgroundImage: `url("./assets/img/bg-${weatherCondArray[0].main}.jfif")`});
-
-                    $(".curr-city").text("Weather for: " + response.name + " - " + moment(weatherData.current.dt * 1000).format("dddd, MMMM Do"));
+                    $("#display-current").css({backgroundImage: `url("./assets/img/pic.${weatherCondArray[0].main}.jpg")`});
+                    $(".curr-city").text("Weather for " + response.name + " - " + moment(weatherData.current.dt * 1000).format("dddd, MMMM Do"));
                     $(".curr-condition").text("Conditions: " + weatherConditions);
                     $(".curr-temp").text("Temp: " + Math.floor(weatherData.current.temp) + " F");
                     $(".curr-wind").text("Wind Speed: " + Math.floor(weatherData.current.wind_speed) + " mph");
@@ -66,11 +68,11 @@ function getCityWeather(currentCity) {
                 console.log(forecastDay);
 
                 var forecastCard = $(`
-                <div class="card forecast">
-                    <div class="card-body">
+                <div class="forecast-row">
+                    <div class="forecast">
                     <h5 class="card-title">${forecastDay}</h5>
                     <p>Temp: ${Math.floor(weatherData.daily[i].temp.day)} F</p>
-                    <p>Wind Speed: ${Math.floor(weatherData.daily[i].wind_speed)} mph</p>
+                    <p>Wind: ${Math.floor(weatherData.daily[i].wind_speed)} mph</p>
                     <p>Humidity: ${weatherData.daily[i].humidity}%</p>
                     <p>UV Index: ${Math.floor(weatherData.daily[i].uvi)}</p>
                     </div>                
@@ -78,27 +80,20 @@ function getCityWeather(currentCity) {
                 `)
                 console.log(forecastCard);
                 $("#5day-forecast").append(forecastCard);
-
-            }
-
+                }
             }) 
 
         })
-
-
-
-
 }
 
-
-// Function for displaying city search data
+// Defining our function for rendering a button when a user searches for a city
 function renderButtons() {
 
     // Empty content inside the buttons-view div prior to adding new cities
     $("#prev-city-view").empty();
     // Loop through the citySearched array, then generate buttons for previous cities in the array
     for (var i = 0; i < citySearched.length; i++) {
-        var newButton = $("<button>");
+        var newButton = $(`<button class="btn-prev-city">`);
         newButton.text(citySearched[i]);
         $("#prev-city-view").prepend(newButton);
     }
@@ -124,10 +119,6 @@ $("#add-city").on("click", function (event) {
 });
 
 
-
-
-
-
 $("#prev-city-view").on("click", "button", function (event) {   
     getCityWeather($(this).text())
 })
@@ -136,8 +127,8 @@ $("#prev-city-view").on("click", "button", function (event) {
 // Clear previous searches from localstorage 
 $("#clear-searches").on("click", function(){
    localStorage.setItem("City Searched", null);
-   $(document)
+   location.reload();
 });
 
-// Calling the renderButtons function to display the initial list of cities
+// Calling the renderButtons function to display the list of cities searched
 renderButtons();

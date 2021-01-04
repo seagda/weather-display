@@ -1,10 +1,49 @@
-.forecast {
-    width: 12vw;
+.container {
+  background-color: wheat;
+  padding-bottom: 20px;
 }
 
-#current-card {
-    width: 67vw;
-    min-height: 100px;
-    background-color: lightblue;
+.forecast {
+    width: 9.5rem;
+    padding: 2px;
+}
 
+.card-header {
+    background-color: rgb(153, 160, 248);
+    color: black;
+    font-weight: 500;
+}
+
+.card-body {
+    background-color: lightblue;
+}
+
+.btn-prev-city {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: wheat;
+}
+
+#city-input {
+    width: 90%;
+}
+
+#display-current {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mynav {
+    margin-bottom: 15px;
+    background-color:rgb(36, 10, 131);
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    font-size: xx-large;
+    
+}
+
+.my-current-data {
+    margin-bottom: 15px;
+    min-height: 200px;
 }

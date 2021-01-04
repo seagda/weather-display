@@ -13,50 +13,64 @@
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-dark bg-dark">
-        <span class="navbar-brand mb-0 h1">Weather Dashboard</span></nav>
     <div class="row">
+        <nav class="navbar col-md-12 mynav">
+            OpenWeather Dashboard
+        </nav> 
+    </div>
+
+    <div class="row my-body">
+
     <!-- left column for search results and button -->
         <div class="col-md-3">
 
-            <form id="city-search">
-                <h2>Search for a City</h2>
-                <p><input type="text" id="city-input"></p>
-                <p><input class="btn btn-primary" id="add-city" type="submit" value="Search"></p>
-            </form>
-            <hr />
-            <h5>Previous Searches</h5>
-            <div id="prev-city-view">
-
-
-
-            </div>
-            <div><button class="btn btn-danger" id="clear-searches">Clear Searches</button> </div>
-
+            <div class="card">
+                <div class="card-header">
+                    Search for a City
+                </div>
+                <div class="card-body">
+                    <form id="city-search">
+                        <h2></h2>
+                        <p><input type="text" id="city-input"></p>
+                        <p class="text-right"><input class="btn btn-primary" id="add-city" type="submit" value="Search"></p>
+                    </form>
+                </div>
+              </div>
+              <br>
+              <div class="card">
+                <div class="card-header">
+                    Previous Searches
+                </div>
+                <div class="card-body">
+                    <div id="prev-city-view">
+                    </div>
+                    <hr>
+                    <div class="text-right"><button class="btn btn-primary" id="clear-searches">Clear</button> </div>
+                </div>
+              </div>
 
         </div>
     <!-- right column for displaying results-->
         <div class="col-md-9">
-            <div class="row">
-                <div id="current-card" class="card">
-                    <div class="card-body" id="display-current">
-                      <h5 class="card-title curr-city"></h5>
-                        <p class="curr-condition"></p>
-                        <p class="curr-temp"></p>
-                        <p class="curr-wind"></p>
-                        <p class="curr-humid"></p>
-                        <p class="curr-uv"></p>
+            <div class="card my-current-data" id="current-card">
+                <div class="card-header" >Current Weather Conditions</div>
+                <div class="card-body" id="display-current">
+                    <h5 class="card-title curr-city"></h5>
+                    <p class="curr-condition"></p>
+                    <p class="curr-temp"></p>
+                    <p class="curr-wind"></p>
+                    <p class="curr-humid"></p>
+                    <p class="curr-uv"></p>
+                </div>
+            </div>
+
+            <div class="card my-current-data">
+                <div class="card-header">Five Day Forecast</div>
+                <div class="card-body">
+                    <div class="row" id="5day-forecast">
                     </div>
                 </div>
             </div>
-            <div class="row"><h5 class="">5 Day Forecast:</h5></div>
-            <div class="row" id="5day-forecast">
-<!--    TODO: Create divs in JQUERY to replace these -->
-
-
-            </div>
-
-
 
 <!-- right column ends there -->
         </div>
